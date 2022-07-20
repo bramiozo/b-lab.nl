@@ -7,6 +7,11 @@
 // 
 // https://caniuse.com/?search=scroll-padding
 
+img-fluid {
+    min-width: 100%;
+    height: auto;
+}
+
 html {
     height: 100%;
     scroll-padding-top: calc(#{$navbar-height} - 1px);
