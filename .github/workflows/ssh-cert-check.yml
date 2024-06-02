@@ -2,7 +2,7 @@ name: SSH Certificate Check
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 * * * *' # Runs every hour
   push:
     branches:
       - main
@@ -11,29 +11,36 @@ jobs:
   check-cert:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
       - name: Check SSH Certificate
         id: check_cert
         run: |
           HOST=blabnl.netlify.app
           PORT=22
-          timeout 5 bash -c "</dev/tcp/$HOST/$PORT" && echo "SSH Certificate is valid" || echo "SSH Certificate is invalid"
-
-      - name: Set badge message
-        run: |
-          if grep -q "SSH Certificate is valid" <<<"${{ steps.check_cert.outputs.result }}"; then
-            echo "badgeMessage=valid" >> $GITHUB_ENV
+          if timeout 5 bash -c "</dev/ttcp/$HOST/$PORT"; then
+            echo "SSH_CERT_STATUS=valid" >> $GITHUB_ENV
           else
-            echo "badgeMessage=invalid" >> $GITHUB_ENV
+            echo "SSH_CERT_STATUS=invalid" >> $GITHUB_ENV
           fi
 
-      - name: Create Badge
+      - name: Create SSH Certificate Badge
         run: |
-          curl -o ssh-cert-status.svg "https://img.shields.io/badge/SSH%20Certificate-${{ env.badgeMessage }}-brightgreen"
+          STATUS=${{ env.SSH_CERT_STATUS }}
+          if [ "$STATUS" == "valid" ]; then
+            COLOR=brightgreen
+          else
+            COLOR=red
+          fi
+          curl -o ssh-cert-status.svg "https://img.shields.io/badge/SSH%20Certificate-$STATUS-$COLOR"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Badge
-        uses: actions/upload-artifact@v2
-        with:
-          name: ssh-cert-status
-          path: ssh-cert-status.svg
+      - name: Commit and push badge
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add ssh-cert-status.svg
+          git commit -m "Update SSH Certificate Status Badge"
+          git push
