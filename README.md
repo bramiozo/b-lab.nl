@@ -3,6 +3,8 @@
 
 ![SSH Certificate Status](https://github.com/bramiozo/b-lab.nl/raw/main/ssh-cert-status.svg)
 
+[Uptime](https://stats.uptimerobot.com/TuP0ubixRl)
+
 
 [Creative](https://startbootstrap.com/theme/creative/) is a one page, creative website theme built with [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
 
