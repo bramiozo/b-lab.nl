@@ -1,4 +1,5 @@
 # [Start Bootstrap - Creative](https://startbootstrap.com/theme/creative/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b5270dc0-cc21-4629-bdb0-8e40c5b51ef7/deploy-status)](https://app.netlify.com/sites/blabnl/deploys)
 
 [Creative](https://startbootstrap.com/theme/creative/) is a one page, creative website theme built with [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
 
