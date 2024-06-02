@@ -1,0 +1,39 @@
+name: SSH Certificate Check
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  push:
+    branches:
+      - main
+
+jobs:
+  check-cert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check SSH Certificate
+        id: check_cert
+        run: |
+          HOST=b-lab.nl
+          PORT=22
+          timeout 5 bash -c "</dev/tcp/$HOST/$PORT" && echo "SSH Certificate is valid" || echo "SSH Certificate is invalid"
+
+      - name: Set badge message
+        run: |
+          if grep -q "SSH Certificate is valid" <<<"${{ steps.check_cert.outputs.result }}"; then
+            echo "badgeMessage=valid" >> $GITHUB_ENV
+          else
+            echo "badgeMessage=invalid" >> $GITHUB_ENV
+          fi
+
+      - name: Create Badge
+        run: |
+          curl -o ssh-cert-status.svg "https://img.shields.io/badge/SSH%20Certificate-${{ env.badgeMessage }}-brightgreen"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Badge
+        uses: actions/upload-artifact@v2
+        with:
+          name: ssh-cert-status
+          path: ssh-cert-status.svg
