@@ -25,9 +25,9 @@ jobs:
           HOST=blabnl.netlify.app
           PORT=22
           if nc -zv $HOST $PORT; then
-            echo "::set-env name=SSH_CERT_STATUS::valid"
+            echo "SSH_CERT_STATUS=valid" >> $GITHUB_ENV
           else
-            echo "::set-env name=SSH_CERT_STATUS::invalid"
+            echo "SSH_CERT_STATUS=invalid" >> $GITHUB_ENV
           fi
 
       - name: Create new branch
