@@ -24,7 +24,10 @@ jobs:
         run: |
           HOST=blabnl.netlify.app
           PORT=443
-          if nc -zv $HOST $PORT; then
+        
+          STATUS=$(timeout 10 bash -c "echo > /dev/tcp/$HOST/$PORT && echo 'valid' || echo 'invalid'")
+
+          if ["$STATUS" == "valid"]; then
             echo "SSH_CERT_STATUS=valid" >> $GITHUB_ENV
           else
             echo "SSH_CERT_STATUS=invalid" >> $GITHUB_ENV
