@@ -27,8 +27,7 @@ jobs:
 
       - name: Create SSH Certificate Badge
         run: |
-          STATUS=${{ env.SSH_CERT_STATUS }}
-          if [ "$STATUS" == "valid" ]; then
+          if [ "${SSH_CERT_STATUS}" == "valid" ]; then
             COLOR=brightgreen
           else
             COLOR=red
