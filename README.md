@@ -1,7 +1,7 @@
 # [Start Bootstrap - Creative](https://startbootstrap.com/theme/creative/)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b5270dc0-cc21-4629-bdb0-8e40c5b51ef7/deploy-status)](https://app.netlify.com/sites/blabnl/deploys)
 
-![SSH Certificate Check](https://github.com/bramiozo/b-lab.nl/raw/main/ssh-cert-status.svg)
+![SSH Certificate Check](https://github.com/bramiozo/b-lab.nl/raw/update-badge/ssh-cert-status.svg)
 
 [Uptime](https://stats.uptimerobot.com/TuP0ubixRl)
 
