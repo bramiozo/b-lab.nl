@@ -23,7 +23,7 @@ jobs:
         id: check_cert
         run: |
           HOST=blabnl.netlify.app
-          PORT=22
+          PORT=443
           if nc -zv $HOST $PORT; then
             echo "SSH_CERT_STATUS=valid" >> $GITHUB_ENV
           else
