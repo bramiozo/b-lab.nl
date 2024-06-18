@@ -50,9 +50,11 @@ jobs:
 
       - name: Commit and push badge
         run: |
+          git fetch origin
+          git rebase origin/master
           git add ssh-cert-status.svg
           git commit -m "Update SSH Certificate Status Badge"
-          git push origin update-badge
+          git push --force origin update-badge
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
